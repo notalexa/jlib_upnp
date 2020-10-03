@@ -1,0 +1,37 @@
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+repositories {
+    // Use jcenter for resolving dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+dependencies {
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.11'
+}
+
+publishing {
+	publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'jlib-upnp'
+            groupId = 'not.alexa'
+            version = '1.0.1'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "NotAlexaOnGithub"
+            url = uri("https://maven.pkg.github.com/notalexa/repo")
+            credentials {
+            	username = project.findProperty('github.user')?:System.getenv("USERNAME")
+            	password = project.findProperty('github.token')?:System.getenv("TOKEN")
+            }
+        }
+    }
+}
