@@ -51,7 +51,7 @@ The following code snippet asks for a device with URN `urn:schemas-upnp-org:devi
 			public void onSearchTimedOut(UPnPScanner scanner,int searchId) {
 				waitLatch.countDown();
 			}
-		}
+		});
 		scanner.search(0);
 		waitLatch.await();
 	}
