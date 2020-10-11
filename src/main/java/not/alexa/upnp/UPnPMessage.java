@@ -131,6 +131,22 @@ public class UPnPMessage {
     }
     
     /**
+     * 
+     * @return the uuid of this message
+     */
+    public String getUUID() {
+        return uuid;
+    }
+    
+    /**
+     * 
+     * @return the urn of this message
+     */
+    public String getURN() {
+        return urn;
+    }
+    
+    /**
      * Create a http search message for this message
      * 
      * @param upnp the UPnP instance
