@@ -137,7 +137,7 @@ public class UPnP implements Closeable {
      * @param port the port
      */
     public UPnP(String address,int port) {
-        this(resolveHost(address),1900);
+        this(resolveHost(address),port);
     }
     
     /**
@@ -594,5 +594,12 @@ public class UPnP implements Closeable {
         } else {
             throw new IllegalArgumentException("Cannot obtain location for "+name+" (http not configured)");
         }
+    }
+    
+    /**
+     * Reset the descriptor content of published messages
+     */
+    public void reset() {
+    	contentMap.clear();
     }
 }
