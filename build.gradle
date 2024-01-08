@@ -5,14 +5,20 @@ plugins {
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven {
+        url 'file://'+System.getProperty('user.home')+'/maven-repo'
+    }
 }
 
 dependencies {
-    // Use JUnit test framework
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.14.2'
     testImplementation 'junit:junit:4.12'
+}
+
+java {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
 publishing {
@@ -26,12 +32,17 @@ publishing {
     }
     repositories {
         maven {
-            name = "NotAlexaOnGithub"
-            url = uri("https://maven.pkg.github.com/notalexa/repo")
-            credentials {
-            	username = project.findProperty('github.user')?:System.getenv("USERNAME")
-            	password = project.findProperty('github.token')?:System.getenv("TOKEN")
-            }
+        	// Local only
+        	url 'file://'+System.getProperty('user.home')+'/maven-repo'
         }
     }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+   	archiveClassifier = 'sources'
+   	from sourceSets.main.allSource
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+   	archiveClassifier = 'javadoc'
+   	from javadoc.destinationDir
 }
